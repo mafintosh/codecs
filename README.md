@@ -1,6 +1,6 @@
 # codecs
 
-Create an binary encoder/decoder for json, utf-8 or custom types
+Create an binary encoder/decoder for Node's build in types like, json, utf-8, hex.
 
 ```
 npm install codecs
@@ -24,8 +24,24 @@ console.log(json.decode(new Buffer('{"hello":"world"}'))) // {hello: 'world'}
 
 #### `var codec = codecs(type)`
 
-Create a new codec. Supported types are `json`, `utf-8`, `utf8` and `binary`.
-If an unknown type is passed in `binary` is used. If you want to use a custom codec you can pass in an object containing a an `encode` and `decode` method and that will be returned.
+Create a new codec.
+
+Supported types are
+
+* utf8
+* json
+* binary
+* hex
+* ascii
+* base64
+* ucs2
+* ucs-2
+* utf16le
+* utf-16le
+* binary
+
+If an unknown type is passed in `binary` is used.
+If you want to use a custom codec you can pass in an object containing a an `encode` and `decode` method and that will be returned.
 
 #### `var buf = codec.encode(value)`
 

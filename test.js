@@ -15,6 +15,13 @@ tape('utf-8', function (t) {
   t.end()
 })
 
+tape('hex', function (t) {
+  var enc = codecs('hex')
+  t.same(enc.encode('abcd'), new Buffer([0xab, 0xcd]))
+  t.same(enc.decode(new Buffer([0xab, 0xcd])), 'abcd')
+  t.end()
+})
+
 tape('binary', function (t) {
   var enc = codecs()
   t.same(enc.encode('hello world'), new Buffer('hello world'))
