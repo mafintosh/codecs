@@ -6,6 +6,8 @@ Create an binary encoder/decoder for json, utf-8 or custom types
 npm install codecs
 ```
 
+[![build status](http://img.shields.io/travis/mafintosh/codecs.svg?style=flat)](http://travis-ci.org/mafintosh/codecs)
+
 Useful to support value encodings similar to leveldb's.
 
 ## Usage
