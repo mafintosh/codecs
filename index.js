@@ -1,9 +1,5 @@
 module.exports = codecs
 
-var fromBuffer = (Buffer.from && Buffer.from !== Uint8Array.from)
-  ? Buffer.from
-  : Buffer
-
 codecs.ascii = createString('ascii')
 codecs.utf8 = createString('utf-8')
 codecs.hex = createString('hex')
@@ -14,7 +10,7 @@ codecs.ndjson = createJSON(true)
 codecs.json = createJSON(false)
 codecs.binary = {
   encode: function encodeBinary (obj) {
-    return typeof obj === 'string' ? fromBuffer(obj, 'utf-8') : obj
+    return typeof obj === 'string' ? Buffer.from(obj, 'utf-8') : obj
   },
   decode: function decodeBinary (buf) {
     return buf
@@ -50,11 +46,11 @@ function createJSON (newline) {
   }
 
   function encodeJSON (val) {
-    return new Buffer(JSON.stringify(val))
+    return Buffer.from(JSON.stringify(val))
   }
 
   function encodeNDJSON (val) {
-    return new Buffer(JSON.stringify(val) + '\n')
+    return Buffer.from(JSON.stringify(val) + '\n')
   }
 }
 
@@ -62,7 +58,7 @@ function createString (type) {
   return {
     encode: function encodeString (val) {
       if (typeof val !== 'string') val = val.toString()
-      return fromBuffer(val, type)
+      return Buffer.from(val, type)
     },
     decode: function decodeString (buf) {
       return buf.toString(type)
