@@ -1,6 +1,6 @@
 {
   "name": "codecs",
-  "version": "1.2.1",
+  "version": "2.0.0",
   "description": "Create an binary encoder/decoder for json, utf-8 or custom types",
   "main": "index.js",
   "dependencies": {},
