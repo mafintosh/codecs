@@ -10,7 +10,11 @@ codecs.ndjson = createJSON(true)
 codecs.json = createJSON(false)
 codecs.binary = {
   encode: function encodeBinary (obj) {
-    return typeof obj === 'string' ? Buffer.from(obj, 'utf-8') : obj
+    return typeof obj === 'string'
+      ? Buffer.from(obj, 'utf-8')
+      : Buffer.isBuffer(obj)
+        ? obj
+        : Buffer.from(obj.buffer, obj.byteOffset, obj.byteLength)
   },
   decode: function decodeBinary (buf) {
     return buf

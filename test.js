@@ -45,3 +45,11 @@ tape('custom', function (t) {
   t.same(enc.decode(Buffer.from('lol')), 42)
   t.end()
 })
+
+tape('uint8arrays in binary', function (t) {
+  var enc = codecs('binary')
+
+  var buf = enc.encode(new Uint8Array([1, 2, 3]))
+  t.same(buf, Buffer.from([1, 2, 3]))
+  t.end()
+})
