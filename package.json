@@ -3,7 +3,9 @@
   "version": "2.1.0",
   "description": "Create an binary encoder/decoder for json, utf-8 or custom types",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "buffer": "^5.6.0"
+  },
   "devDependencies": {
     "standard": "^12.0.1",
     "tape": "^4.10.1"
