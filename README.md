@@ -30,6 +30,7 @@ Supported types are
 
 * utf8
 * json
+* [ndjson](http://ndjson.org/)
 * binary
 * hex
 * ascii
