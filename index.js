@@ -18,7 +18,9 @@ codecs.binary = {
         : Buffer.from(obj.buffer, obj.byteOffset, obj.byteLength)
   },
   decode: function decodeBinary (buf) {
-    return buf
+    return Buffer.isBuffer(buf)
+      ? buf
+      : Buffer.from(buf.buffer, buf.byteOffset, buf.byteLength)
   }
 }
 
