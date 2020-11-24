@@ -22,7 +22,7 @@ codecs.binary = {
   }
 }
 
-function codecs (fmt) {
+function codecs (fmt, fallback) {
   if (typeof fmt === 'object' && fmt && fmt.encode && fmt.decode) return fmt
 
   switch (fmt) {
@@ -39,7 +39,7 @@ function codecs (fmt) {
     case 'utf16le': return codecs.utf16le
   }
 
-  return codecs.binary
+  return fallback !== undefined ? fallback : codecs.binary
 }
 
 function createJSON (newline) {
