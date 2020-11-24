@@ -9,6 +9,7 @@ codecs.utf16le = createString('utf16le')
 codecs.ndjson = createJSON(true)
 codecs.json = createJSON(false)
 codecs.binary = {
+  name: 'binary',
   encode: function encodeBinary (obj) {
     return typeof obj === 'string'
       ? Buffer.from(obj, 'utf-8')
@@ -43,6 +44,7 @@ function codecs (fmt) {
 
 function createJSON (newline) {
   return {
+    name: newline ? 'ndjson' : 'json',
     encode: newline ? encodeNDJSON : encodeJSON,
     decode: function decodeJSON (buf) {
       return JSON.parse(buf.toString())
@@ -60,6 +62,7 @@ function createJSON (newline) {
 
 function createString (type) {
   return {
+    name: type,
     encode: function encodeString (val) {
       if (typeof val !== 'string') val = val.toString()
       return Buffer.from(val, type)
