@@ -6,7 +6,7 @@ Create an binary encoder/decoder for Node's build in types like, json, utf-8, he
 npm install codecs
 ```
 
-[![build status](http://img.shields.io/travis/mafintosh/codecs.svg?style=flat)](http://travis-ci.org/mafintosh/codecs)
+[![Build Status](https://github.com/mafintosh/streamx/workflows/Build%20Status/badge.svg)](https://github.com/mafintosh/streamx/actions?query=workflow%3A%22Build+Status%22)
 
 Useful to support value encodings similar to leveldb's.
 
