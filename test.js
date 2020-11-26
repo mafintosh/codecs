@@ -28,9 +28,15 @@ tape('hex', function (t) {
 tape('binary', function (t) {
   var enc = codecs()
   t.same(enc.name, 'binary')
-  t.same(enc.encode('hello world'), Buffer.from('hello world'))
-  t.same(enc.encode(Buffer.from('hello world')), Buffer.from('hello world'))
-  t.same(enc.decode(Buffer.from('hello world')), Buffer.from('hello world'))
+  const input = Buffer.from('hello world')
+  t.same(enc.encode('hello world'), input)
+  t.equals(enc.encode(input), input)
+  t.equals(enc.decode(input), input)
+  const uint8 = new Uint8Array(input.buffer, input.byteOffset, input.byteLength)
+  t.ok(Buffer.isBuffer(enc.encode(uint8)))
+  t.equals(enc.encode(uint8).compare(input), 0)
+  t.ok(Buffer.isBuffer(enc.decode(uint8)))
+  t.equals(enc.decode(uint8).compare(input), 0)
   t.end()
 })
 
