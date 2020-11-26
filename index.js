@@ -1,3 +1,5 @@
+const Buffer = require('buffer').Buffer
+
 module.exports = codecs
 
 codecs.ascii = createString('ascii')
