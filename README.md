@@ -22,7 +22,7 @@ console.log(json.decode(new Buffer('{"hello":"world"}'))) // {hello: 'world'}
 
 ## API
 
-#### `var codec = codecs(type)`
+#### `var codec = codecs(type, [fallback])`
 
 Create a new codec.
 
@@ -41,7 +41,7 @@ Supported types are
 * utf-16le
 * binary
 
-If an unknown type is passed in `binary` is used.
+If an unknown type is passed-in, the `fallback` is used if given, else `binary`.
 If you want to use a custom codec you can pass in an object containing a an `encode` and `decode` method and that will be returned.
 
 #### `var buf = codec.encode(value)`

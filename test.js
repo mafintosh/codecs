@@ -59,3 +59,10 @@ tape('uint8arrays in binary', function (t) {
   t.same(buf, Buffer.from([1, 2, 3]))
   t.end()
 })
+
+tape('custom fallback', function (t) {
+  t.equals(codecs('baseless', null), null)
+  const custom = { decode: function () {}, encode: function () {} }
+  t.equals(codecs('baseless', custom), custom)
+  t.end()
+})
