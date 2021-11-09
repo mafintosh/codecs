@@ -1,3 +1,5 @@
+const b4a = require('b4a')
+
 module.exports = codecs
 
 codecs.ascii = createString('ascii')
@@ -12,15 +14,11 @@ codecs.binary = {
   name: 'binary',
   encode: function encodeBinary (obj) {
     return typeof obj === 'string'
-      ? Buffer.from(obj, 'utf-8')
-      : Buffer.isBuffer(obj)
-        ? obj
-        : Buffer.from(obj.buffer, obj.byteOffset, obj.byteLength)
+      ? b4a.from(obj, 'utf-8')
+      : b4a.toBuffer(obj)
   },
   decode: function decodeBinary (buf) {
-    return Buffer.isBuffer(buf)
-      ? buf
-      : Buffer.from(buf.buffer, buf.byteOffset, buf.byteLength)
+    return b4a.toBuffer(buf)
   }
 }
 
@@ -49,16 +47,16 @@ function createJSON (newline) {
     name: newline ? 'ndjson' : 'json',
     encode: newline ? encodeNDJSON : encodeJSON,
     decode: function decodeJSON (buf) {
-      return JSON.parse(buf.toString())
+      return JSON.parse(b4a.toString(buf))
     }
   }
 
   function encodeJSON (val) {
-    return Buffer.from(JSON.stringify(val))
+    return b4a.from(JSON.stringify(val))
   }
 
   function encodeNDJSON (val) {
-    return Buffer.from(JSON.stringify(val) + '\n')
+    return b4a.from(JSON.stringify(val) + '\n')
   }
 }
 
@@ -67,10 +65,10 @@ function createString (type) {
     name: type,
     encode: function encodeString (val) {
       if (typeof val !== 'string') val = val.toString()
-      return Buffer.from(val, type)
+      return b4a.from(val, type)
     },
     decode: function decodeString (buf) {
-      return buf.toString(type)
+      return b4a.toString(buf, type)
     }
   }
 }
