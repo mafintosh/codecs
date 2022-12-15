@@ -47,7 +47,7 @@ function createJSON (newline) {
     name: newline ? 'ndjson' : 'json',
     encode: newline ? encodeNDJSON : encodeJSON,
     decode: function decodeJSON (buf) {
-      return JSON.parse(b4a.toString(buf))
+      return revive(JSON.parse(b4a.toString(buf)))
     }
   }
 
@@ -71,4 +71,15 @@ function createString (type) {
       return b4a.toString(buf, type)
     }
   }
+}
+
+function revive (o) {
+  if (o.type === 'Buffer') return b4a.from(o.data)
+  if (Array.isArray(o)) return o.map(revive)
+  if (typeof o === 'object' && o !== null) {
+    const obj = {}
+    for (const [k, v] of Object.entries(o)) obj[k] = revive(v)
+    return obj
+  }
+  return o
 }
