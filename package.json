@@ -4,14 +4,15 @@
   "description": "Create an binary encoder/decoder for json, utf-8 or custom types",
   "main": "index.js",
   "dependencies": {
-    "b4a": "^1.1.1"
+    "b4a": "^1.6.3"
   },
   "devDependencies": {
-    "standard": "^12.0.1",
-    "tape": "^4.10.1"
+    "brittle": "^3.2.1",
+    "compact-encoding": "^2.11.0",
+    "standard": "^17.0.0"
   },
   "scripts": {
-    "test": "standard && tape test.js"
+    "test": "standard && brittle test.js"
   },
   "repository": {
     "type": "git",
