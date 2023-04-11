@@ -6,23 +6,21 @@ Create an binary encoder/decoder for Node's build in types like, json, utf-8, he
 npm install codecs
 ```
 
-[![Build Status](https://github.com/mafintosh/codecs/workflows/Build%20Status/badge.svg)](https://github.com/mafintosh/codecs/actions?query=workflow%3A%22Build+Status%22)
-
 Useful to support value encodings similar to leveldb's.
 
 ## Usage
 
 ``` js
-var codecs = require('codecs')
-var json = codecs('json')
+const codecs = require('codecs')
+const json = codecs('json')
 
-console.log(json.encode({hello: 'world'})) // new Buffer('{"hello":"world"}')
-console.log(json.decode(new Buffer('{"hello":"world"}'))) // {hello: 'world'}
+console.log(json.encode({ hello: 'world' })) // Buffer.from('{"hello":"world"}')
+console.log(json.decode(new Buffer('{"hello":"world"}'))) // { hello: 'world' }
 ```
 
 ## API
 
-#### `var codec = codecs(type, [fallback])`
+#### `const codec = codecs(type, [fallback])`
 
 Create a new codec.
 
@@ -43,12 +41,13 @@ Supported types are
 
 If an unknown type is passed-in, the `fallback` is used if given, else `binary`.
 If you want to use a custom codec you can pass in an object containing a an `encode` and `decode` method and that will be returned.
+If you pass a [compact encoder](https://github.com/compact-encoding/compact-encoding), then it will be converted into a codec for you and returned.
 
-#### `var buf = codec.encode(value)`
+#### `const buf = codec.encode(value)`
 
 Encode a value to a buffer.
 
-#### `var value = codec.decode(buf)`
+#### `const value = codec.decode(buf)`
 
 Decode a buffer to a value.
 
