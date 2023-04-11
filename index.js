@@ -22,8 +22,30 @@ codecs.binary = {
   }
 }
 
+function isCompactEncoding (c) {
+  return !!(c.encode && c.decode && c.preencode)
+}
+
+function fromCompactEncoding (c) {
+  return {
+    name: 'compact-encoding',
+    encode: function encodeWithCompact (value) {
+      const state = { start: 0, end: 0, buffer: null, cache: null }
+      c.preencode(state, value)
+      state.buffer = b4a.allocUnsafe(state.end)
+      c.encode(state, value)
+      return state.buffer
+    },
+    decode: function decodeWithCompact (buffer) {
+      return c.decode({ start: 0, end: buffer.byteLength, buffer, cache: null })
+    }
+  }
+}
+
 function codecs (fmt, fallback) {
-  if (typeof fmt === 'object' && fmt && fmt.encode && fmt.decode) return fmt
+  if (typeof fmt === 'object' && fmt) {
+    return isCompactEncoding(fmt) ? fromCompactEncoding(fmt) : fmt
+  }
 
   switch (fmt) {
     case 'ndjson': return codecs.ndjson
