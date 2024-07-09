@@ -28,7 +28,7 @@ Supported types are
 
 * utf8
 * json
-* [ndjson](http://ndjson.org/)
+* ndjson
 * binary
 * hex
 * ascii
